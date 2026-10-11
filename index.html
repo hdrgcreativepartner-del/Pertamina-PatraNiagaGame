@@ -9,13 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style-v3.css">
+  <link rel="stylesheet" href="style-v3.css?v=20261011-r9">
+  <link rel="stylesheet" href="patra-update.css?v=20261011-r9">
 </head>
 <body>
   <div id="splash" class="splash" aria-label="Pertamina Patra Niaga">
     <div class="splash-accent accent-red"></div>
     <div class="splash-accent accent-blue"></div>
-    <img class="splash-logo" src="asset/Pertamina Logo.png" alt="Pertamina Patra Niaga">
+    <div class="splash-brand-pair"><img class="splash-partner-logo danantara-logo" src="asset/Danantara_Indonesia logo.png" alt="Danantara Indonesia"><i class="brand-divider" aria-hidden="true"></i><img class="splash-partner-logo patra-logo" src="asset/Pertamina Logo.png" alt="Pertamina Patra Niaga"></div>
     <div class="splash-loader"><i></i></div>
   </div>
 
@@ -192,8 +193,8 @@
           <button id="memoryStart" class="primary-btn compact" onclick="startMemory()">START GAME</button>
         </div>
         <div class="memory-shell">
-          <div class="memory-brand"><img src="asset/Pertamina Logo.png" alt="Pertamina Patra Niaga"><div><b>ENERGY MEMORY</b><span>Tap cards to match every asset pair</span></div></div>
-          <div class="memory-stats"><div><span>TIME</span><b><strong id="memoryTime">60</strong>s</b></div><div><span>MOVES</span><b id="memoryMoves">00</b></div><div><span>MATCHES</span><b><strong id="memoryMatches">0</strong>/8</b></div></div>
+          <div class="memory-brand"><img src="asset/Pertamina Logo.png" alt="Pertamina Patra Niaga"><div><b>ENERGY MEMORY</b><span>Cocokkan produk Pertamina dan MyPertamina</span></div></div>
+          <div class="memory-stats"><div><span>TIME</span><b><strong id="memoryTime">60</strong>s</b></div><div><span>MOVES</span><b id="memoryMoves">00</b></div><div><span>MATCHES</span><b><strong id="memoryMatches">0</strong>/9</b></div></div>
           <div id="memoryBoard" class="memory-board"></div>
           <div id="memoryResult" class="memory-result hidden"></div>
         </div>
@@ -214,9 +215,9 @@
   </div>
 
   <div id="toast" class="toast"></div>
-  <script src="game-config.js"></script>
+  <script src="game-config.js?v=20261011-r9"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=20261011-r9"></script>
 </body>
 </html>

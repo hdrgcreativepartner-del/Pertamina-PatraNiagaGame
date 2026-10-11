@@ -2,7 +2,7 @@ window.EVENT_CONFIG={
   brandName:'PERTAMINA PATRA NIAGA',
   eventLabel:'ENERGIZING YOUR JOURNEY',
   palette:{black:'#0B0A08',red:'#D6191F',blue:'#0070BA',lime:'#BBD760',gray:'#BBBBBB',white:'#FFFFFF'},
-  splash:{asset:'asset/Pertamina Logo.png',duration:2400},
+  splash:{asset:'asset/Pertamina Logo.png',partnerAsset:'asset/Danantara_Indonesia logo.png',duration:2400},
   auth:{user:'89 pro',pin:'1945'},
   capture:{
     duration:45,
@@ -30,18 +30,19 @@ window.EVENT_CONFIG={
     size:12,
     duration:120,
     maxWords:6,
-    defaultWords:['DISTRIBUTOR','BRIGHTSTORE','FASTRON','RETAIL','MITRA','PERTAMINA','ENERGI','PATRA','NIAGA']
+    defaultWords:['MYPERTAMINA','DISTRIBUTOR','BRIGHTSTORE','FASTRON','RETAIL','MITRA','PERTAMINA','ENERGI','PATRA','NIAGA']
   },
   memory:[
     'asset/pertalite-card.png','asset/pertamax-card.png','asset/turbo-card.png','asset/pertamax-95-card.png',
-    'asset/dex-card.png','asset/dexlite-card.png','asset/biosolar-card.png','asset/lpg-2.png'
+    'asset/dex-card.png','asset/dexlite-card.png','asset/biosolar-card.png','asset/lpg-2.png','asset/MyPertamina.svg'
   ],
-  memoryBack:'asset/Pertamina Logo.png'
+  memoryBack:'asset/Card Cover.png',
+  memoryBlank:'asset/Card Blank.png'
 };
 
 /* Runtime revision loader, versioned to bypass stale GitHub Pages cache. */
 (()=>{
-  const version='20260827-r8';
+  const version='20261011-patra-r9';
   ['booth-rev5.css','booth-rev7.css'].forEach(file=>{
     const css=document.createElement('link');
     css.rel='stylesheet';
