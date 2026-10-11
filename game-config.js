@@ -34,7 +34,7 @@ window.EVENT_CONFIG={
   },
   memory:[
     'asset/pertalite-card.png','asset/pertamax-card.png','asset/turbo-card.png','asset/pertamax-95-card.png',
-    'asset/dex-card.png','asset/dexlite-card.png','asset/biosolar-card.png','asset/lpg-2.png','asset/MyPertamina.svg'
+    'asset/dex-card.png','asset/dexlite-card.png','asset/biosolar-card.png','asset/lpg-2.png','asset/MyPertamina.png'
   ],
   memoryBack:'asset/Card Cover.png',
   memoryBlank:'asset/Card Blank.png'
@@ -42,7 +42,7 @@ window.EVENT_CONFIG={
 
 /* Runtime revision loader, versioned to bypass stale GitHub Pages cache. */
 (()=>{
-  const version='20261011-patra-r9';
+  const version='20261011-patra-r10';
   ['booth-rev5.css','booth-rev7.css'].forEach(file=>{
     const css=document.createElement('link');
     css.rel='stylesheet';
