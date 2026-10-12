@@ -108,8 +108,9 @@ async function endCapture(){
   $('captureFinalScore').textContent=capture.score.toLocaleString('id-ID');
   $('capturePointsEarned').textContent='+'+capture.earned.toLocaleString('id-ID');
   $('capturePointsLost').textContent='−'+capture.lost.toLocaleString('id-ID');
-  await exitCaptureFocus();showPage('capture-summary');
-  requestAnimationFrame(()=>$('captureSummaryTitle').focus({preventScroll:true}));
+  await exitCaptureFocus();
+  if(typeof window.showCaptureResult==='function'){showPage('home');window.showCaptureResult()}
+  else{showPage('capture-summary');requestAnimationFrame(()=>$('captureSummaryTitle').focus({preventScroll:true}))}
 }
 async function stopCamera(){capture.running=false;clearInterval(capture.timer);cancelAnimationFrame(capture.raf);stopCameraStream();await exitCaptureFocus()}
 async function restartCapture(){await stopCamera();resetCapture();showPage('capture');enableCamera()}

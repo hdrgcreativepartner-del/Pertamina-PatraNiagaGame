@@ -17,7 +17,7 @@
 
   function removeResultPopup(){document.getElementById('boothGameResult')?.remove();}
 
-  function showResultPopup({game,name,score,elapsed,status,onReplay}){
+  function showResultPopup({game,name,score,elapsed,status,onReplay,earned,lost}){
     removeResultPopup();
     const overlay=document.createElement('div');
     overlay.id='boothGameResult';
@@ -33,6 +33,10 @@
           <div><span>SCORE</span><b>${Math.max(0,Math.round(Number(score)||0))}</b></div>
           <div><span>TIME</span><b>${formatElapsed(elapsed)}</b></div>
         </div>
+        ${earned===undefined?'':`<div class="booth-result-stats capture-result-points">
+          <div class="points-earned"><span>POIN DIDAPAT</span><b>+${Math.max(0,Math.round(Number(earned)||0))}</b></div>
+          <div class="points-lost"><span>POIN DIKURANGI</span><b>−${Math.max(0,Math.round(Number(lost)||0))}</b></div>
+        </div>`}
         <div class="booth-result-actions">
           <button class="booth-result-primary" type="button" data-action="replay">PLAY AGAIN</button>
           <button class="booth-result-secondary" type="button" data-action="home">HOME</button>
@@ -91,6 +95,12 @@
     wrapped.__rev7Wrapped=true;
     finishMemory=wrapped;
   }
+
+  window.showCaptureResult=function(){
+    showResultPopup({game:'CAPTURE ENERGY',name:playerName(),score:capture.score,
+      elapsed:(CFG.capture?.duration||60)-capture.time,status:'ROUND COMPLETE',
+      earned:capture.earned,lost:capture.lost,onReplay:()=>openGame('capture')});
+  };
 
   function install(){installWordResult();installMemoryResult();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();

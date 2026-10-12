@@ -144,3 +144,13 @@ body.capture-focus #captureCanvas,#captureStage:fullscreen #captureCanvas{width:
 .booth-result-card .booth-result-actions button{font-size:12px;min-height:50px}
 @media(orientation:portrait){#capture-summary{padding-top:28px;min-height:calc(100svh - 160px)}.capture-points-breakdown{gap:10px}#memory .memory-brand{gap:14px}#memory .memory-brand img{width:120px}#memory .memory-brand b{font-size:clamp(24px,5vw,34px)}}
 @media(orientation:landscape) and (max-height:600px){#capture-summary{padding:18px}#capture-summary .capture-summary-card{padding:22px;max-width:720px}#captureSummaryTitle{margin:10px 0 4px}#captureFinalScore{font-size:80px}.capture-points-breakdown{margin:16px 0}.capture-summary-actions{grid-template-columns:1fr 1fr}}
+
+/* Capture uses the same result component and controls as Memory. */
+.booth-result-card .capture-result-points{margin-top:-12px;margin-bottom:24px}
+.booth-result-card .capture-result-points>div{padding:14px 12px}
+.booth-result-card .capture-result-points span{font-size:11px;letter-spacing:.03em;line-height:1.5}
+.booth-result-card .capture-result-points b{font-size:34px;overflow-wrap:anywhere}
+.booth-result-card .capture-result-points .points-earned{background:#f0f8ee;border-color:#daebd3}
+.booth-result-card .capture-result-points .points-earned b{color:#3d791b}
+.booth-result-card .capture-result-points .points-lost{background:#fff2f2;border-color:#f5dddd}
+.booth-result-card .capture-result-points .points-lost b{color:#b22530}
