@@ -5,7 +5,7 @@ window.EVENT_CONFIG={
   splash:{asset:'asset/Pertamina Logo.png',partnerAsset:'asset/Danantara_Indonesia logo.png',duration:2400},
   auth:{user:'89 pro',pin:'1945'},
   capture:{
-    duration:45,
+    duration:60,
     spawnEvery:1900,
     spawnEveryStart:2200,spawnEveryEnd:1450,
     speedStart:.0024,speedEnd:.0052,minWaveGap:.30,
@@ -45,7 +45,7 @@ window.EVENT_CONFIG={
 
 /* Runtime revision loader, versioned to bypass stale GitHub Pages cache. */
 (()=>{
-  const version='20261012-patra-r12';
+  const version='20261012-patra-r13';
   ['booth-rev5.css','booth-rev7.css'].forEach(file=>{
     const css=document.createElement('link');
     css.rel='stylesheet';

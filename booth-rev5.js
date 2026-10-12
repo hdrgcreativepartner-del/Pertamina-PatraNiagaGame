@@ -153,7 +153,7 @@
       const before=capture.score,points=Number(o.item.points)||0;
       if(o.bad){capture.score=Math.max(0,capture.score+points);capture.combo=1;navigator.vibrate?.([45,30,45])}
       else{capture.score+=Math.round(points*Math.max(1,capture.combo));capture.combo=Math.min(7,capture.combo+.45);navigator.vibrate?.(22)}
-      updateCaptureHud();showCaptureFx(o,capture.score-before);
+      recordCapturePoints(capture.score-before);updateCaptureHud();showCaptureFx(o,capture.score-before);
       const flash=$('hitFlash');flash.className=`hit-flash ${o.bad?'bad':'good'}`;
       const hud=$('captureScoreFocus');hud.classList.remove('score-pop');void hud.offsetWidth;hud.classList.add('score-pop');
       clearTimeout(capture.flashTimer);capture.flashTimer=setTimeout(()=>flash.className='hit-flash',450);

@@ -119,3 +119,28 @@ body.capture-focus #captureCanvas,#captureStage:fullscreen #captureCanvas{width:
 }
 @media(orientation:portrait) and (max-width:380px){#home .home-shell{padding:24px 14px 14px}#home .game-picker{padding:14px;grid-template-columns:1fr}#home .game-picker .game-choice{flex-direction:row;min-height:0}#home .player-form-card{padding:18px}}
 @media(prefers-reduced-motion:reduce){.page.active,.game-info-dialog[open],::view-transition-old(root),::view-transition-new(root){animation:none!important}#home .game-picker .game-choice{transition:none}}
+/* Revision 13: dedicated, readable round summary. */
+#capture-summary{min-height:calc(100svh - 90px);padding:clamp(24px,6vw,64px) 18px;background:#f0f4f8}
+#capture-summary .capture-summary-card{width:min(100%,560px);margin:auto;background:#fff;border:1px solid #dce4ec;border-radius:24px;padding:clamp(24px,5vw,42px);box-shadow:0 16px 50px #10243d0d;text-align:center}
+.capture-summary-kicker{display:block;font-size:12px;font-weight:800;letter-spacing:.07em;color:#557087;line-height:1.5}
+#captureSummaryTitle{font-size:24px;font-weight:600;letter-spacing:-.02em;margin:22px 0 12px;color:#526479}
+#captureFinalScore{display:block;font-family:'Barlow Condensed',system-ui,sans-serif;font-size:clamp(80px,19vw,124px);line-height:1.05;color:#0c2348;font-weight:800;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.capture-points-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0}
+.capture-points-breakdown>div{padding:18px 10px;border-radius:16px;border:1px solid #dce5ea;text-align:center}
+.capture-points-breakdown .points-earned{background:#f0f8ee;border-color:#daebd3}
+.capture-points-breakdown .points-lost{background:#fff2f2;border-color:#f5dddd}
+.capture-points-breakdown span{display:block;font-size:13px;font-weight:600;line-height:1.5;margin-bottom:6px;color:#4e6171}
+.capture-points-breakdown b{font-family:'Barlow Condensed',system-ui,sans-serif;font-size:40px;line-height:1.2;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.points-earned b{color:#3d791b}.points-lost b{color:#b22530}
+.capture-summary-actions{display:grid;gap:12px}
+.capture-summary-actions button{width:100%;min-height:52px;font-size:13px;border-radius:12px;justify-content:center}
+.capture-summary-actions .outline-btn{border:1px solid #cdd8e1;color:#243c55;background:#fff}
+#memory .memory-stats span{font-size:11px;letter-spacing:.06em;line-height:1.5}
+#memory .memory-stats>div{padding:14px;min-width:0}
+#memory .memory-stats b{font-size:clamp(25px,5vw,36px);font-variant-numeric:tabular-nums}
+#memory .memory-brand span{font-size:13px;line-height:1.6}
+.booth-result-card{max-height:calc(100svh - 32px);overflow-y:auto}
+.booth-result-card .booth-result-kicker{font-size:11px}.booth-result-card .booth-result-stats span{font-size:12px}
+.booth-result-card .booth-result-actions button{font-size:12px;min-height:50px}
+@media(orientation:portrait){#capture-summary{padding-top:28px;min-height:calc(100svh - 160px)}.capture-points-breakdown{gap:10px}#memory .memory-brand{gap:14px}#memory .memory-brand img{width:120px}#memory .memory-brand b{font-size:clamp(24px,5vw,34px)}}
+@media(orientation:landscape) and (max-height:600px){#capture-summary{padding:18px}#capture-summary .capture-summary-card{padding:22px;max-width:720px}#captureSummaryTitle{margin:10px 0 4px}#captureFinalScore{font-size:80px}.capture-points-breakdown{margin:16px 0}.capture-summary-actions{grid-template-columns:1fr 1fr}}

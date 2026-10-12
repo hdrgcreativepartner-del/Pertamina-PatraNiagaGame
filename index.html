@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style-v3.css?v=20261012-r12">
-  <link rel="stylesheet" href="patra-update.css?v=20261012-r12">
-  <link rel="stylesheet" href="patra-player.css?v=20261012-r12">
+  <link rel="stylesheet" href="style-v3.css?v=20261012-r13">
+  <link rel="stylesheet" href="patra-update.css?v=20261012-r13">
+  <link rel="stylesheet" href="patra-player.css?v=20261012-r13">
 </head>
 <body>
   <div id="splash" class="splash" aria-label="Pertamina Patra Niaga">
@@ -90,7 +90,7 @@
           </div>
 
           <div class="home-visual" aria-label="Truk Pertamina Patra Niaga">
-            <video class="hero-truck-video" autoplay loop muted playsinline preload="metadata" poster="asset/truck-left.png"><source src="asset/truck-hero.mp4" type="video/mp4"></video>
+            <video class="hero-truck-video" autoplay loop muted playsinline preload="metadata" poster="asset/truck-left.png"><source src="asset/TruckHero.mp4?v=20261012-r13" type="video/mp4"></video>
             <div class="hero-video-caption"><span>HEAD TRACKING</span><span>3 LANE DRIVE</span><span>LIVE SCORE</span></div>
           </div>
         </div>
@@ -117,7 +117,7 @@
               <p>Gerakkan kepala ke kiri, tengah, atau kanan. Perpindahan truk dibuat halus di antara tiga lajur.</p>
             </div>
             <div class="side-card stat-stack">
-              <div><span>TIME</span><b><strong id="captureTime">45</strong>s</b></div>
+              <div><span>TIME</span><b><strong id="captureTime">60</strong>s</b></div>
               <div><span>LANE</span><b id="captureLane">CENTER</b></div>
               <div><span>COMBO</span><b id="captureCombo">x1</b></div>
               <div class="time-meter"><i id="captureMeter"></i></div>
@@ -129,7 +129,7 @@
             <canvas id="captureCanvas"></canvas>
             <div class="capture-overlay"></div>
             <div class="capture-mini-hud">
-              <div><span>TIME</span><b id="captureTimeFocus">45s</b></div>
+              <div><span>TIME</span><b id="captureTimeFocus">60s</b></div>
               <div><span>LANE</span><b id="captureLaneFocus">CENTER</b></div>
               <div><span>SCORE</span><b id="captureScoreFocus">0000</b></div>
             </div>
@@ -147,6 +147,22 @@
               <span>ROUND COMPLETE</span><strong id="captureResultScore">0000</strong><p id="captureResultText"></p>
               <div><button class="primary-btn" onclick="restartCapture()">PLAY AGAIN</button><button class="outline-btn dark" onclick="showPage('home')">HOME</button></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="capture-summary" class="page capture-summary-page" aria-labelledby="captureSummaryTitle">
+        <div class="capture-summary-card">
+          <span class="capture-summary-kicker">CAPTURE ENERGY • SELESAI</span>
+          <h2 id="captureSummaryTitle" tabindex="-1">Skor akhir</h2>
+          <strong id="captureFinalScore" class="capture-final-score">0</strong>
+          <div class="capture-points-breakdown">
+            <div class="points-earned"><span>Poin didapat</span><b id="capturePointsEarned">+0</b></div>
+            <div class="points-lost"><span>Poin dikurangi</span><b id="capturePointsLost">−0</b></div>
+          </div>
+          <div class="capture-summary-actions">
+            <button class="primary-btn" type="button" onclick="openGame('capture')">MAIN LAGI <span>↻</span></button>
+            <button class="outline-btn" type="button" onclick="showPage('home')">KEMBALI KE HOME</button>
           </div>
         </div>
       </section>
@@ -188,7 +204,7 @@
         </div>
         <div class="memory-shell">
           <div class="memory-brand"><img src="asset/Pertamina Logo.png" alt="Pertamina Patra Niaga"><div><b>ENERGY MEMORY</b><span>Cocokkan produk Pertamina dan MyPertamina</span></div></div>
-          <div class="memory-stats"><div><span>TIME</span><b><strong id="memoryTime">60</strong>s</b></div><div><span>MOVES</span><b id="memoryMoves">00</b></div><div><span>MATCHES</span><b><strong id="memoryMatches">0</strong>/9</b></div></div>
+          <div class="memory-stats"><div><span>TIME</span><b><strong id="memoryTime">60</strong>s</b></div><div><span>MOVES</span><b id="memoryMoves">00</b></div><div><span>MATCHES</span><b><strong id="memoryMatches">0</strong>/<strong id="memoryTarget">7</strong></b></div></div>
           <div id="memoryBoard" class="memory-board"></div>
           <div id="memoryResult" class="memory-result hidden"></div>
         </div>
@@ -216,9 +232,9 @@
     <button class="primary-btn" type="button" onclick="confirmGameInfo()" autofocus>MENGERTI, MULAI <span>→</span></button>
   </dialog>
   <div id="toast" class="toast"></div>
-  <script src="game-config.js?v=20261012-r12"></script>
+  <script src="game-config.js?v=20261012-r13"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="app.js?v=20261012-r12"></script>
+  <script src="app.js?v=20261012-r13"></script>
 </body>
 </html>
