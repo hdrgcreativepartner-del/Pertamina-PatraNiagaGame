@@ -126,7 +126,9 @@
       const assets=CFG.capture.truckAssets,src=capture.truckLane<.66?assets.left:capture.truckLane>1.34?assets.right:assets.center;
       const im=revImages[src]||imageCache[src],x=laneX(road,capture.truckLane,.93),laneW=laneWidthAt(road,.93);
       const ratio=im?.naturalWidth?im.naturalHeight/im.naturalWidth:2.2;
-      const truckW=Math.min(laneW*.62,140,capture.h*.26/ratio),truckH=truckW*ratio;
+      // Use a shared vehicle height; sprite widths differ because of camera perspective.
+      const ratios=Object.values(assets).map(key=>{const img=revImages[key]||imageCache[key];return img?.naturalWidth?img.naturalHeight/img.naturalWidth:2.2});
+      const truckH=Math.min(capture.h*.26,laneW*.85*Math.min(...ratios),280),truckW=truckH/ratio;
       const now=performance.now(),motion=matchMedia('(prefers-reduced-motion: reduce)').matches?0:1;
       const vx=(Math.sin(now*.038)*.85+Math.sin(now*.071)*.35)*motion,vy=(Math.sin(now*.052)*1.5+Math.sin(now*.093)*.5)*motion;
       const y=capture.h-truckH/2-16;
@@ -161,7 +163,7 @@
   function refreshCopy(){
     const instruction=document.querySelector('.word-instruction');
     if(instruction)instruction.textContent='TEKA-TEKI SILANG HURUF — cari kata hanya dari kiri ke kanan atau dari atas ke bawah. Touch / click lalu drag.';
-    const wordSmall=document.querySelector('.game-picker button:nth-child(1) small');if(wordSmall)wordSmall.textContent='Left → right / top → bottom';
+
     const captureText=document.querySelector('#cameraPrompt p');if(captureText)captureText.textContent='Gerakkan kepala untuk mengarahkan truk. Tangkap logo fuel untuk menambah skor dan hindari non-fuel. Saat mulai, track otomatis fullscreen.';
     const captureTitle=document.querySelector('#cameraPrompt h3');if(captureTitle)captureTitle.innerHTML='DRIVE THE TRUCK.<br><em>CAPTURE THE ENERGY.</em>';
   }

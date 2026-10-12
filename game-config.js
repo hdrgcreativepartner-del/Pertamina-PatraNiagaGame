@@ -45,7 +45,7 @@ window.EVENT_CONFIG={
 
 /* Runtime revision loader, versioned to bypass stale GitHub Pages cache. */
 (()=>{
-  const version='20261012-patra-r11';
+  const version='20261012-patra-r12';
   ['booth-rev5.css','booth-rev7.css'].forEach(file=>{
     const css=document.createElement('link');
     css.rel='stylesheet';

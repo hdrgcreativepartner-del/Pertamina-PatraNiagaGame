@@ -65,3 +65,57 @@ body.capture-focus #captureCanvas,#captureStage:fullscreen #captureCanvas{width:
   #memory .memory-shell{max-width:1200px}
 }
 @media(prefers-reduced-motion:reduce){#captureStage .capture-score-fx,.energy-burst i,.score-pop{animation:none!important}.energy-burst{display:none}}
+/* Revision 12: readable portrait flow and clear game entry. */
+.game-info-dialog{width:min(560px,calc(100vw - 28px));max-height:calc(100svh - 32px);overflow:auto;border:1px solid #e3e8ee;border-radius:24px;padding:32px;color:#10243d;background:#fff;box-shadow:0 32px 100px #0006}
+.game-info-dialog::backdrop{background:#07101bd6;backdrop-filter:blur(8px)}
+.game-info-dialog[open]{animation:dialogEnter .3s cubic-bezier(.2,.8,.2,1)}
+.game-info-close{position:absolute;right:12px;top:12px;width:44px;height:44px;border:0;border-radius:50%;background:#f1f4f6;color:#354657;font-size:26px}
+.game-info-brand{display:flex;align-items:center;gap:20px;margin:10px 32px 28px 0}
+.game-info-brand img{width:42%;height:40px;object-fit:contain}
+.game-info-dialog .kicker{font-size:11px;letter-spacing:.12em}
+.game-info-dialog h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(38px,8vw,58px);line-height:1;margin:12px 0}
+.game-info-dialog p{font-size:15px;line-height:1.7;color:#526274;margin:0}
+.game-info-dialog ul{padding:0;list-style:none;margin:22px 0;display:grid;gap:10px}
+.game-info-dialog li{padding:12px 14px;border-radius:12px;background:#f1f5f8;font-size:14px;line-height:1.5}
+.game-info-dialog .primary-btn{width:100%;font-size:13px;min-height:52px;justify-content:space-between}
+@keyframes dialogEnter{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+::view-transition-old(root){animation:pageOut .22s ease both}
+::view-transition-new(root){animation:pageArrival .35s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pageOut{to{opacity:0;transform:translateY(-8px)}}
+@keyframes pageArrival{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.page.active{animation:pageArrival .4s cubic-bezier(.2,.8,.2,1)}
+#home .game-picker{gap:14px;padding-bottom:32px}
+#home .game-picker .game-choice{position:relative;display:flex;align-items:flex-start;gap:14px;text-align:left;min-height:182px;padding:24px 18px;border:1px solid #ffffff25;border-radius:20px;background:linear-gradient(145deg,#142437,#080e16);color:#fff;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;overflow:hidden}
+#home .game-picker .game-choice::after{content:'';position:absolute;right:-40px;top:-40px;width:130px;height:130px;border-radius:50%;background:var(--card-accent,#BBD760);opacity:.07;pointer-events:none}
+#home .game-picker .game-card-icon{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;background:#ffffff12;border:1px solid #ffffff20;border-radius:14px;font-size:26px;font-weight:700;color:var(--card-accent,#BBD760)}
+#home .game-picker .game-choice div{flex:1;min-width:0}
+#home .game-picker .game-choice small{font-size:10px;letter-spacing:.06em;color:#b8c9d7;line-height:1.5}
+#home .game-picker .game-choice b{display:block;font-size:25px;line-height:1.05;margin:8px 0;white-space:normal}
+#home .game-picker .game-choice p{font-size:13px;line-height:1.6;margin:0 0 18px;color:#c5d2dc}
+#home .game-picker .game-choice em{display:block;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--card-accent,#BBD760)}
+#home .word-choice{--card-accent:#9bd8ff}#home .capture-choice{--card-accent:#d2fa65}#home .memory-choice{--card-accent:#ffafb2}#home .leaderboard-choice{--card-accent:#ffe095}
+#home .game-picker .game-choice:hover{transform:translateY(-4px);border-color:var(--card-accent);box-shadow:0 12px 36px #0006}
+#home .game-picker .game-choice:active{transform:scale(.98)}
+#home .game-picker .game-choice:focus-visible{outline:3px solid var(--card-accent);outline-offset:4px}
+@media(orientation:portrait){
+  #home .home-shell{display:flex;flex-direction:column;align-items:stretch;gap:0;max-width:720px;padding:28px 20px 16px}
+  #home .home-copy{display:contents}
+  #home .home-copy>.kicker{order:1;font-size:11px;line-height:1.6;letter-spacing:.08em}
+  #home .home-copy>h1{order:2;font-size:clamp(48px,11.5vw,84px);line-height:.94;margin:14px 0}
+  #home .home-copy>p{order:3;font-size:14px;line-height:1.7;max-width:none;margin:0 0 10px;color:#c4cdd6}
+  #home .home-visual{order:4;width:100%;max-width:none;aspect-ratio:16/9;border-radius:16px;margin:8px 0 20px}
+  #home .player-form-card{order:5;margin:0;width:100%;max-width:none;padding:22px;border-radius:18px}
+  #home .hero-video-caption span{font-size:10px;padding:6px 9px}
+  #home .player-fields{grid-template-columns:1fr;gap:14px}
+  #home .player-fields label{font-size:11px;line-height:1.5;letter-spacing:.04em}
+  #home .player-fields input,#home .player-fields select{height:50px;font-size:16px;padding:12px}
+  #home .form-heading span{font-size:10px}#home .form-heading b{font-size:20px}#home .text-btn{font-size:11px;min-height:44px}
+  #home .player-form-actions{align-items:stretch;gap:10px}#home .player-form-actions .primary-btn{min-height:50px;font-size:13px}
+  #home .player-status{font-size:12px;line-height:1.5}
+  #home .game-picker{max-width:720px;margin:auto;grid-template-columns:1fr 1fr;padding:16px 20px 32px;gap:12px}
+  #home .game-picker .game-choice{flex-direction:column;gap:12px;min-height:220px;padding:20px 16px}
+  #home .game-picker .game-choice b{font-size:27px}
+  .game-titlebar .kicker{font-size:10px}.game-titlebar h2{line-height:1.05}
+}
+@media(orientation:portrait) and (max-width:380px){#home .home-shell{padding:24px 14px 14px}#home .game-picker{padding:14px;grid-template-columns:1fr}#home .game-picker .game-choice{flex-direction:row;min-height:0}#home .player-form-card{padding:18px}}
+@media(prefers-reduced-motion:reduce){.page.active,.game-info-dialog[open],::view-transition-old(root),::view-transition-new(root){animation:none!important}#home .game-picker .game-choice{transition:none}}

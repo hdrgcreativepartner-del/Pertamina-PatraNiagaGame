@@ -21,8 +21,31 @@ function loginOperator(e){e?.preventDefault();const user=$('loginUser').value.tr
 function logoutOperator(){if(!confirm('Keluar dari booth operator?'))return;stopAllGames();sessionStorage.removeItem('pertaminaBoothAuth');showLogin()}
 
 function setNavActive(id){document.querySelectorAll('.nav-tabs button').forEach(b=>b.classList.toggle('active',b.dataset.page===id))}
-function showPage(id){if(id!==currentPage){if(currentPage==='capture')stopCamera();if(currentPage==='word')stopWordSearch(false);if(currentPage==='memory')stopMemory(false)}currentPage=id;document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));setNavActive(id);if(id==='leaderboard')renderLeaderboard();window.scrollTo({top:0,behavior:'smooth'})}
-function openGame(id){if(!ensurePlayer())return;if(id==='capture')resetCapture();if(id==='word')prepareWordSearch();if(id==='memory')resetMemory();showPage(id)}
+function showPage(id){
+  if(!document.getElementById(id))return;
+  if(id!==currentPage){if(currentPage==='capture')stopCamera();if(currentPage==='word')stopWordSearch(false);if(currentPage==='memory')stopMemory(false)}
+  const render=()=>{currentPage=id;document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));setNavActive(id);if(id==='leaderboard')renderLeaderboard();window.scrollTo({top:0,behavior:'instant'})};
+  if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.startViewTransition(render)}else render();
+}
+const GAME_DETAILS={
+  word:{title:'Energy Word',description:'Temukan kata seputar Pertamina Patra Niaga, termasuk MyPertamina, di dalam susunan huruf.',tips:['Waktu 120 detik','Sentuh huruf pertama, lalu geser ke huruf terakhir','Cari dari kiri ke kanan atau dari atas ke bawah']},
+  capture:{title:'Capture Energy',description:'Kendarai truk dengan gerakan kepala. Tangkap produk energi dan hindari objek non-fuel.',tips:['Waktu 45 detik • kamera diperlukan','Gerakkan kepala ke kiri, tengah, atau kanan','Produk energi menambah poin dan combo; non-fuel mengurangi poin','Mulai pelan, lalu semakin cepat']},
+  memory:{title:'Energy Memory',description:'Buka dua kartu dan temukan pasangan produk yang sama. Cocokkan seluruh 7 pasangan, termasuk MyPertamina.',tips:['Waktu 60 detik','Sentuh dua kartu untuk membuka','Ingat posisi kartu • selesaikan 7 pasangan']}
+};
+let pendingGame=null,gameInfoOpener=null;
+function openGame(id){
+  if(!GAME_DETAILS[id]||!ensurePlayer())return;
+  pendingGame=id;gameInfoOpener=document.activeElement;
+  const info=GAME_DETAILS[id];$('gameInfoTitle').textContent=info.title;$('gameInfoDescription').textContent=info.description;
+  $('gameInfoTips').replaceChildren(...info.tips.map(text=>{const li=document.createElement('li');li.textContent=text;return li}));
+  if(!$('gameInfoModal').open)$('gameInfoModal').showModal();
+}
+function closeGameInfo(){pendingGame=null;$('gameInfoModal').close();gameInfoOpener?.focus?.()}
+function confirmGameInfo(){
+  const id=pendingGame;if(!id)return;closeGameInfo();if(!ensurePlayer())return;
+  if(id==='capture')resetCapture();if(id==='word')prepareWordSearch();if(id==='memory')resetMemory();showPage(id);
+}
+
 function stopAllGames(){stopCamera();stopWordSearch(false);stopMemory(false)}
 
 function contactMeta(type){return type==='email'?{label:'Email',placeholder:'nama@email.com',inputType:'email'}:type==='phone'?{label:'WhatsApp / Phone',placeholder:'08xx xxxx xxxx',inputType:'tel'}:{label:'Social Media',placeholder:'@username',inputType:'text'}}
