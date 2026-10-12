@@ -6,9 +6,12 @@ window.EVENT_CONFIG={
   auth:{user:'89 pro',pin:'1945'},
   capture:{
     duration:45,
-    spawnEvery:900,
+    spawnEvery:1900,
+    spawnEveryStart:2200,spawnEveryEnd:1450,
+    speedStart:.0024,speedEnd:.0052,minWaveGap:.30,
     nonFuelChance:.34,
-    truckAsset:'asset/Truck Tanki.png',
+    truckAsset:'asset/truck-center.png',
+    truckAssets:{left:'asset/truck-left.png',center:'asset/truck-center.png',right:'asset/truck-right.png'},
     fuel:[
       {src:'asset/pertalite-card.png',label:'PERTALITE',points:10},
       {src:'asset/pertamax-card.png',label:'PERTAMAX',points:15},
@@ -33,16 +36,16 @@ window.EVENT_CONFIG={
     defaultWords:['MYPERTAMINA','DISTRIBUTOR','BRIGHTSTORE','FASTRON','RETAIL','MITRA','PERTAMINA','ENERGI','PATRA','NIAGA']
   },
   memory:[
-    'asset/pertalite-card.png','asset/pertamax-card.png','asset/turbo-card.png','asset/pertamax-95-card.png',
-    'asset/dex-card.png','asset/dexlite-card.png','asset/biosolar-card.png','asset/lpg-2.png','asset/MyPertamina.png'
+    'asset/pertamax-card.png','asset/turbo-card.png','asset/pertamax-95-card.png',
+    'asset/dex-card.png','asset/dexlite-card.png','asset/lpg-2.png','asset/MyPertamina.png'
   ],
-  memoryBack:'asset/Card Cover.png',
+  memoryBack:'asset/memory-cover.png',
   memoryBlank:'asset/Card Blank.png'
 };
 
 /* Runtime revision loader, versioned to bypass stale GitHub Pages cache. */
 (()=>{
-  const version='20261011-patra-r10';
+  const version='20261012-patra-r11';
   ['booth-rev5.css','booth-rev7.css'].forEach(file=>{
     const css=document.createElement('link');
     css.rel='stylesheet';

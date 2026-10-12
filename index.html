@@ -9,8 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style-v3.css?v=20261011-r9">
-  <link rel="stylesheet" href="patra-update.css?v=20261011-r9">
+  <link rel="stylesheet" href="style-v3.css?v=20261012-r11">
+  <link rel="stylesheet" href="patra-update.css?v=20261012-r11">
+  <link rel="stylesheet" href="patra-player.css?v=20261012-r11">
 </head>
 <body>
   <div id="splash" class="splash" aria-label="Pertamina Patra Niaga">
@@ -88,16 +89,9 @@
             </div>
           </div>
 
-          <div class="home-visual" aria-label="Interactive truck features">
-            <div class="hero-ring ring-a"></div>
-            <div class="hero-ring ring-b"></div>
-            <div class="hero-rotor">
-              <img class="hero-truck" src="asset/Truck Tanki.png" alt="Truck Tanki Pertamina">
-              <div class="orbit-label label-one"><span>HEAD TRACKING</span></div>
-              <div class="orbit-label label-two"><span>3 LANE DRIVE</span></div>
-              <div class="orbit-label label-three"><span>LIVE SCORE</span></div>
-            </div>
-            <div class="hero-center-dot"></div>
+          <div class="home-visual" aria-label="Truk Pertamina Patra Niaga">
+            <video class="hero-truck-video" autoplay loop muted playsinline preload="metadata" poster="asset/truck-left.png"><source src="asset/truck-hero.mp4" type="video/mp4"></video>
+            <div class="hero-video-caption"><span>HEAD TRACKING</span><span>3 LANE DRIVE</span><span>LIVE SCORE</span></div>
           </div>
         </div>
 
@@ -215,9 +209,9 @@
   </div>
 
   <div id="toast" class="toast"></div>
-  <script src="game-config.js?v=20261011-r10"></script>
+  <script src="game-config.js?v=20261012-r11"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="app.js?v=20261011-r9"></script>
+  <script src="app.js?v=20261012-r11"></script>
 </body>
 </html>
