@@ -154,3 +154,24 @@ body.capture-focus #captureCanvas,#captureStage:fullscreen #captureCanvas{width:
 .booth-result-card .capture-result-points .points-earned b{color:#3d791b}
 .booth-result-card .capture-result-points .points-lost{background:#fff2f2;border-color:#f5dddd}
 .booth-result-card .capture-result-points .points-lost b{color:#b22530}
+/* Revision 15: flexible, readable page menu. */
+.topbar{display:flex;flex-wrap:wrap;height:auto;min-height:80px;gap:14px;padding:14px clamp(16px,3vw,40px);align-items:center}
+.topbar .brand{flex:0 1 auto;min-width:0}.topbar .brand img{width:120px;height:46px}
+.topbar .brand span b{font-size:12px;line-height:1.5}.topbar .brand small{font-size:9px;line-height:1.4}
+.topbar .nav-tabs{display:flex;flex:1 1 auto;flex-wrap:wrap;justify-content:center;align-items:stretch;height:auto;gap:6px;overflow:visible;border:0;min-width:0}
+.topbar .nav-tabs button{position:relative;isolation:isolate;overflow:hidden;display:flex;flex:0 1 auto;align-items:center;justify-content:center;gap:8px;min-height:48px;height:auto;padding:12px 14px;border:1px solid transparent;border-radius:12px;background:#f3f6f9;color:#405369;font-size:14px;font-weight:700;line-height:1.4;white-space:normal;text-align:center;transition:background .2s ease,color .2s ease,transform .18s ease,box-shadow .2s ease}
+.topbar .nav-tabs button b{font-size:20px;line-height:1;flex:0 0 auto}
+.topbar .nav-tabs button:hover{background:#e7eff7;color:#0b4f84;border-color:#c8dcec}
+.topbar .nav-tabs button.active{background:#0c2348;color:#fff;border-color:#0c2348;box-shadow:0 4px 12px #0c234824}
+.topbar .nav-tabs button.active::before{content:'';position:absolute;bottom:5px;left:calc(50% - 10px);width:20px;height:3px;border-radius:4px;background:#BBD760}
+.topbar .nav-tabs button:active{transform:scale(.96)}
+.topbar .nav-tabs button:focus-visible,.topbar .header-btn:focus-visible{outline:3px solid #0070ba;outline-offset:3px}
+.topbar .nav-tabs button.nav-clicked::after{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:currentColor;animation:menuTap .4s ease-out forwards;pointer-events:none}
+@keyframes menuTap{from{opacity:.18;transform:scale(.6)}to{opacity:0;transform:scale(1.15)}}
+.topbar .header-actions{flex:0 0 auto;gap:8px;margin-left:auto}
+.topbar .header-btn{height:44px;min-width:44px;padding:0 12px;font-size:11px;border-radius:12px}
+.topbar .header-btn b{font-size:20px}
+@media(max-width:1280px){.topbar{gap:12px}.topbar .nav-tabs{order:3;flex:1 1 100%;width:100%;justify-content:stretch}.topbar .nav-tabs button{flex:1 1 140px}.topbar .brand span{display:none}.topbar .header-btn span{display:none}}
+@media(max-width:600px){.topbar{padding:12px;gap:12px;position:relative}.topbar .brand img{width:120px}.topbar .nav-tabs{gap:6px}.topbar .nav-tabs button{flex:1 1 calc(33.333% - 6px);min-width:90px;padding:10px 6px;min-height:52px;font-size:13px;gap:5px}.topbar .nav-tabs button b{font-size:19px}.topbar .header-actions{gap:6px}.topbar .header-btn{padding:0 10px}.topbar .header-btn.export{display:flex}.topbar .header-btn.export span{display:block;font-size:10px}}
+@media(max-width:360px){.topbar .brand img{width:100px}.topbar .nav-tabs button{flex-basis:calc(50% - 6px);font-size:14px}.topbar .header-actions{gap:4px}.topbar .header-btn{width:40px;min-width:40px;padding:0 6px}}
+@media(prefers-reduced-motion:reduce){.topbar .nav-tabs button{transition:none}.topbar .nav-tabs button.nav-clicked::after{animation:none;display:none}}

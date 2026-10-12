@@ -20,7 +20,7 @@ function showApp(){$('loginScreen')?.classList.add('hidden');$('appRoot')?.class
 function loginOperator(e){e?.preventDefault();const user=$('loginUser').value.trim().toLowerCase(),pin=$('loginPin').value.trim();if(user===String(CFG.auth?.user||'').toLowerCase()&&pin===String(CFG.auth?.pin||'')){sessionStorage.setItem('pertaminaBoothAuth','1');$('loginError').textContent='';showApp();toast('Booth access granted')}else{$('loginError').textContent='User atau PIN tidak sesuai.';$('loginPin').value='';$('loginPin').focus()}}
 function logoutOperator(){if(!confirm('Keluar dari booth operator?'))return;stopAllGames();sessionStorage.removeItem('pertaminaBoothAuth');showLogin()}
 
-function setNavActive(id){document.querySelectorAll('.nav-tabs button').forEach(b=>b.classList.toggle('active',b.dataset.page===id))}
+function setNavActive(id){document.querySelectorAll('.nav-tabs button').forEach(b=>{const active=b.dataset.page===id;b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
 function showPage(id){
   if(!document.getElementById(id))return;
   if(id!==currentPage){if(currentPage==='capture')stopCamera();if(currentPage==='word')stopWordSearch(false);if(currentPage==='memory')stopMemory(false)}
@@ -158,3 +158,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   updateContactField();
 });
 window.addEventListener('load',()=>setTimeout(hideSplash,CFG.splash?.duration||1900));
+
+// Brief click feedback applies to both pointer and keyboard activation.
+document.addEventListener('click',event=>{
+  const button=event.target.closest?.('.nav-tabs button');if(!button)return;
+  button.classList.remove('nav-clicked');void button.offsetWidth;button.classList.add('nav-clicked');
+  clearTimeout(button.menuTapTimer);button.menuTapTimer=setTimeout(()=>button.classList.remove('nav-clicked'),420);
+});
