@@ -4,7 +4,7 @@
   const revImages={};
   function preloadRevAssets(){
     const cfg=window.EVENT_CONFIG||{};
-    const list=[cfg.capture?.truckAsset,...(cfg.capture?.fuel||[]).map(x=>x.src),...(cfg.capture?.nonFuel||[]).map(x=>x.src)];
+    const list=[cfg.capture?.truckAsset,...Object.values(cfg.capture?.truckAssets||{}),...(cfg.capture?.fuel||[]).map(x=>x.src),...(cfg.capture?.nonFuel||[]).map(x=>x.src)];
     [...new Set(list.filter(Boolean))].forEach(src=>{const im=new Image();im.src=src;revImages[src]=im;});
   }
 
@@ -101,16 +101,15 @@
     if(typeof drawGameObject!=='function'||typeof drawTruck!=='function'||typeof collectCapture!=='function')return;
 
     spawnWave=function(){
-      const fuel=CFG.capture?.fuel||[],bad=CFG.capture?.nonFuel||[];if(!fuel.length&&!bad.length)return;
-      const lanes=shuffle([0,1,2]),count=Math.random()<.74?2:1;
-      for(let i=0;i<count;i++){
-        const isBad=Math.random()<(CFG.capture?.nonFuelChance??.34),pool=isBad?bad:fuel,item=pool[Math.floor(Math.random()*pool.length)];
-        capture.objects.push({lane:lanes[i],y:-.10,speed:.0039+Math.random()*.0012,item,bad:isBad,rot:(Math.random()-.5)*.025});
-      }
+      const fuel=CFG.capture.fuel||[],bad=CFG.capture.nonFuel||[];if(!fuel.length&&!bad.length)return;
+      const p=captureProgress(),lane=Math.floor(Math.random()*3),isBad=bad.length>0&&(!fuel.length||Math.random()<(CFG.capture.nonFuelChance??.34));
+      const pool=isBad?bad:fuel,item=pool[Math.floor(Math.random()*pool.length)];if(!item)return;
+      capture.objects.push({lane,y:-.10,item,bad:isBad,rot:0});
     };
 
     drawGameObject=function(ctx,o,road){
-      o.y+=o.speed;
+      const progress=captureProgress(),eased=progress*progress*(3-2*progress);
+      o.y+=(CFG.capture.speedStart+(CFG.capture.speedEnd-CFG.capture.speedStart)*eased)*(capture.frameScale||1);
       const t=Math.max(0,Math.min(1,o.y)),x=laneX(road,o.lane,t),y=o.y*capture.h,im=revImages[o.item.src];
       const laneW=laneWidthAt(road,t),maxW=laneW*.58,maxH=42+42*t;
       let w=Math.min(maxW,72+30*t),h=Math.min(maxH,68+24*t);
@@ -123,33 +122,39 @@
     };
 
     drawTruck=function(ctx,road){
-      const im=revImages[CFG.capture?.truckAsset],t=.93;
-      capture.truckLane+=(capture.targetLane-capture.truckLane)*.085;
-      const x=laneX(road,capture.truckLane,t),laneW=laneWidthAt(road,t),truckW=Math.min(118,laneW*.48);
-      const ratio=im?.naturalWidth?im.naturalHeight/im.naturalWidth:.55,truckH=truckW*ratio,y=capture.h-truckH-18;
-      ctx.save();
-      const glow=ctx.createRadialGradient(x,y+truckH*.55,4,x,y+truckH*.55,truckW*.7);glow.addColorStop(0,'rgba(0,112,186,.20)');glow.addColorStop(1,'rgba(0,112,186,0)');ctx.fillStyle=glow;ctx.fillRect(x-truckW,y-truckH*.2,truckW*2,truckH*1.8);
-      ctx.shadowColor='rgba(0,0,0,.62)';ctx.shadowBlur=20;ctx.shadowOffsetY=8;
-      if(im?.complete&&im.naturalWidth)ctx.drawImage(im,x-truckW/2,y,truckW,truckH);
-      else{ctx.fillStyle='#0070BA';ctx.fillRect(x-truckW/2,y,truckW,truckH);}
-      ctx.restore();return{x,y:y+truckH*.52,w:truckW,h:truckH,lane:capture.truckLane};
+      const dt=capture.frameScale||1;capture.truckLane+=(capture.targetLane-capture.truckLane)*(1-Math.pow(.905,dt));
+      const assets=CFG.capture.truckAssets,src=capture.truckLane<.66?assets.left:capture.truckLane>1.34?assets.right:assets.center;
+      const im=revImages[src]||imageCache[src],x=laneX(road,capture.truckLane,.93),laneW=laneWidthAt(road,.93);
+      const ratio=im?.naturalWidth?im.naturalHeight/im.naturalWidth:2.2;
+      const truckW=Math.min(laneW*.62,140,capture.h*.26/ratio),truckH=truckW*ratio;
+      const now=performance.now(),motion=matchMedia('(prefers-reduced-motion: reduce)').matches?0:1;
+      const vx=(Math.sin(now*.038)*.85+Math.sin(now*.071)*.35)*motion,vy=(Math.sin(now*.052)*1.5+Math.sin(now*.093)*.5)*motion;
+      const y=capture.h-truckH/2-16;
+      ctx.save();ctx.translate(x+vx,y+vy);ctx.rotate(Math.sin(now*.044)*.003*motion);ctx.shadowColor='rgba(0,0,0,.7)';ctx.shadowBlur=20;
+      if(im?.complete&&im.naturalWidth)ctx.drawImage(im,-truckW/2,-truckH/2,truckW,truckH);
+      ctx.restore();return{x,y,w:truckW,h:truckH,lane:capture.truckLane};
     };
 
-    window.showCaptureFx=function(o){
-      const stage=document.getElementById('captureStage');if(!stage)return;
-      const fx=document.createElement('div');
+    window.showCaptureFx=function(o,delta){
+      const stage=$('captureStage'),fx=document.createElement('div');
       fx.className=`capture-score-fx ${o.bad?'bad':'good'}`;
-      const pts=Math.abs(Number(o.item.points)||0);
-      fx.innerHTML=o.bad?`<b>−${pts}</b><span>NON-FUEL HIT</span>`:`<b>+${pts}</b><span>ENERGY CAPTURED</span>`;
-      stage.appendChild(fx);setTimeout(()=>fx.remove(),850);
+      const value=document.createElement('b'),label=document.createElement('span');
+      value.textContent=(delta<0?'−':'+')+Math.abs(delta);
+      label.textContent=o.bad?'ENERGI BERKURANG • HINDARI NON-FUEL':'ENERGY BOOST • '+o.item.label;
+      fx.append(value,label);stage.appendChild(fx);
+      const burst=document.createElement('div');burst.className=`energy-burst ${o.bad?'bad':'good'}`;
+      for(let i=0;i<12;i++){const particle=document.createElement('i');particle.style.setProperty('--angle',i*30+'deg');burst.appendChild(particle)}
+      stage.appendChild(burst);setTimeout(()=>{fx.remove();burst.remove()},1200);
     };
 
     collectCapture=function(o){
-      const points=Number(o.item.points)||0;
-      if(o.bad){capture.score=Math.max(0,capture.score+points);capture.combo=1;navigator.vibrate?.([45,30,45]);}
-      else{capture.score+=Math.round(points*Math.max(1,capture.combo));capture.combo=Math.min(7,capture.combo+.45);navigator.vibrate?.(22);}
-      updateCaptureHud();showCaptureFx(o);
-      const f=$('hitFlash');f.className=`hit-flash ${o.bad?'bad':'good'}`;setTimeout(()=>f.className='hit-flash',260);
+      const before=capture.score,points=Number(o.item.points)||0;
+      if(o.bad){capture.score=Math.max(0,capture.score+points);capture.combo=1;navigator.vibrate?.([45,30,45])}
+      else{capture.score+=Math.round(points*Math.max(1,capture.combo));capture.combo=Math.min(7,capture.combo+.45);navigator.vibrate?.(22)}
+      updateCaptureHud();showCaptureFx(o,capture.score-before);
+      const flash=$('hitFlash');flash.className=`hit-flash ${o.bad?'bad':'good'}`;
+      const hud=$('captureScoreFocus');hud.classList.remove('score-pop');void hud.offsetWidth;hud.classList.add('score-pop');
+      clearTimeout(capture.flashTimer);capture.flashTimer=setTimeout(()=>flash.className='hit-flash',450);
     };
   }
 
